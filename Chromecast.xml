@@ -2,7 +2,13 @@
 <Client name="Chromecast">
   <!-- Author: Plex Inc. -->
   <TranscodeTargets>
+    <VideoProfile protocol="hls" container="mpegts" codec="h264" audioCodec="mp3" context="streaming">
+      <Setting name="VideoEncodeFlags" value="-x264opts bframes=3:cabac=1" />
+    </VideoProfile>
     <VideoProfile protocol="http" container="matroska" codec="h264" audioCodec="aac" context="streaming">
+      <Setting name="VideoEncodeFlags" value="-x264opts bframes=3:cabac=1" />
+    </VideoProfile>
+    <VideoProfile protocol="dash" container="mp4" codec="h264" audioCodec="aac" context="streaming">
       <Setting name="VideoEncodeFlags" value="-x264opts bframes=3:cabac=1" />
     </VideoProfile>
     <MusicProfile container="matroska" codec="mp3" />
@@ -14,13 +20,24 @@
         <Limitations>
           <UpperBound name="video.width" value="1920" />
           <UpperBound name="video.height" value="1080" />
-          <UpperBound name="video.bitrate" value="12000" isRequired="false" />
+          <UpperBound name="video.bitrate" value="40000" isRequired="false" />
           <UpperBound name="video.bitDepth" value="8" isRequired="false" />
         </Limitations>
       </VideoCodec>
     </VideoTranscodeTarget>
+    <VideoTranscodeTarget protocol="dash" context="streaming">
+     <VideoCodec name="*">
+       <Limitations>
+         <UpperBound name="video.width" value="1920" />
+         <UpperBound name="video.height" value="1080" />
+         <UpperBound name="video.bitrate" value="40000" isRequired="false" />
+         <UpperBound name="video.bitDepth" value="8" isRequired="false" />
+       </Limitations>
+     </VideoCodec>
+    </VideoTranscodeTarget>
   </TranscodeTargetProfiles>
   <DirectPlayProfiles>
+    <VideoProfile container="matroska" codec="h264" audioCodec="aac"/>
     <VideoProfile container="mp4" codec="h264" audioCodec="aac" />
     <MusicProfile container="mp4" codec="aac" />
     <MusicProfile container="mp3" codec="mp3" />
@@ -39,24 +56,21 @@
         <UpperBound name="video.width" value="1920" />
         <UpperBound name="video.height" value="1080" />
         <UpperBound name="video.bitDepth" value="8" isRequired="false" />
-        <UpperBound name="video.level" value="42" isRequired="false" />
       </Limitations>
     </VideoCodec>
     <VideoAudioCodec name="mp3">
       <Limitations>
-        <UpperBound name="audio.bitrate" value="320" isRequired="false"/>
+        <UpperBound name="audio.bitrate" value="320" />
         <UpperBound name="audio.channels" value="2" />
       </Limitations>
     </VideoAudioCodec>
     <VideoAudioCodec name="aac">
       <Limitations>
-        <UpperBound name="audio.bitrate" value="768" isRequired="false"/>
-        <UpperBound name="audio.channels" value="6" />
       </Limitations>
     </VideoAudioCodec>
     <MusicCodec name="mp3">
       <Limitations>
-        <UpperBound name="audio.bitrate" value="320" isRequired="false"/>
+        <UpperBound name="audio.bitrate" value="320" />
         <UpperBound name="audio.channels" value="2" />
       </Limitations>
     </MusicCodec>
